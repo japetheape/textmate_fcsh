@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>Errors</title>
+		<style>
+			* {font-family:arial; }
+			h1 {}
+			html {margin:0px;padding:0px;}
+			body {padding:0px;margin:0px;font-size:12px;}
+			.header {font-size:10px;border-bottom:1px solid #999;width:100%;text-align:right;background-color:black; color:white;}
+			.header .content {padding:10px;}
+			.header a {color:white;}
+			.container {padding:20px;}
+			
+			table {width:100%;}
+			table, tr, td,th {border-spacing:0px;font-size:11px;}
+			th, td {padding-left:10px;}
+			th {text-align:left;border-bottom:1px solid #999;}
+			th.file {width:300px;}
+			th.level {width:100px;}
+			tr {height:30px;border:1px solid black;}
+			tr.warning { background-color:yellow;}
+			tr.warning a {color:black;}
+			
+			tr.error { background-color:#FF3000;}
+			tr.error a {color:white;}
+			
+			tr.error td {color:white;}
+			td {border-bottom:1px dotted #ccc;}
+		</style>
+	</head>
+	<body>
+		<div class='header'>
+			<div class='content'>
+				Generated <strong><%=Time.now.to_s %></strong> by Textmate Fcsh, written by <a href="http://www.jaapvandermeer.com">Jaap van der Meer</a>
+			</div>
+		</div>
+				
+		<div class='container'>
+		
+		<% if @errors.empty? %>
+			<h1>No errors</h1>
+		<% else %>
+			<h1><%=@errors.size %> errors</h1>
+			<table>
+				<tr>
+					<th class='level'>Level</th><th class='file'>File</th><th class='Notice'>Notice</th>
+				</tr>
+				
+			<% @errors.each do |error| %>
+				<tr class="<%=error.level %>">
+					<td><%=error.level %></td><td><a href="txmt://open/?url=file://<%=error.filename %>&line=<%=error.line %>&column=<%=error.column %>"><%=error.filename %>:<%=error.line %></a></td><td><%=error.message %></td>
+				</tr>
+			<% end %>
+			</table>
+		<% end %>
+		
+		</div>
+	
+	</body>
+</html>

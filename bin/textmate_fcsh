@@ -1,0 +1,12 @@
+#/usr/local/bin/env ruby
+
+
+require File.join(File.dirname(__FILE__), '..', 'lib', 'textmate_fcsh')
+
+
+a = TextmateFcsh.new
+
+a.run
+sleep 1
+a.run
+

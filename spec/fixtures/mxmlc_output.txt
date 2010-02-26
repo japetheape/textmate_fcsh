@@ -1,0 +1,258 @@
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/SaveView.as(12): col: 24 Warning: return value for function 'init' has no type declaration.
+
+		public function init() {
+		                     ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/Controls.as(43): col: 32 Warning: return value for function 'setPositions' has no type declaration.
+
+		public function setPositions() {
+		                             ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/Controls.as(44): col: 8 Warning: variable 'x' has no type declaration.
+
+			var x = 0;
+			    ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(35): col: 15 Error: Type was not found or was not a compile-time constant: SoundProjectSaver.
+
+			var lSaver:SoundProjectSaver = new SoundProjectSaver(this.fSoundProject);
+			           ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(35): col: 39 Error: Call to a possibly undefined method SoundProjectSaver.
+
+			var lSaver:SoundProjectSaver = new SoundProjectSaver(this.fSoundProject);
+			                                   ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(35): col: 62 Error: Access of possibly undefined property fSoundProject through a reference with static type com.tunedustry.editor.controller:IOController.
+
+			var lSaver:SoundProjectSaver = new SoundProjectSaver(this.fSoundProject);
+			                                                          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(36): col: 9 Error: Access of possibly undefined property mainView through a reference with static type com.tunedustry.editor.controller:IOController.
+
+			this.mainView.getProgressBar().setProgress(0,0);
+			     ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(51): col: 4 Error: Access of undefined property mainView.
+
+			mainView.getProgressBar().indeterminate = true;
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(38): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().visible = false;
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(39): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().indeterminate = false;
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(43): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().visible = false;
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(44): col: 5 Error: Call to a possibly undefined method alert.
+
+				alert(e.text);
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(48): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().label = "Saving project...";
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(49): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().setProgress(pEvent.bytesLoaded, pEvent.bytesTotal);
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(57): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject = new SoundProject();
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(58): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 1"));
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(58): col: 34 Error: Call to a possibly undefined method SoundTrack.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 1"));
+			                              ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(58): col: 45 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 1"));
+			                                         ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(59): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 2"));
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(59): col: 34 Error: Call to a possibly undefined method SoundTrack.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 2"));
+			                              ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(59): col: 45 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 2"));
+			                                         ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(60): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 3"));
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(60): col: 34 Error: Call to a possibly undefined method SoundTrack.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 3"));
+			                              ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(60): col: 45 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 3"));
+			                                         ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(61): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 4"));
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(61): col: 34 Error: Call to a possibly undefined method SoundTrack.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 4"));
+			                              ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(61): col: 45 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.tracks.push(new SoundTrack(fSoundProject, "Track 4"));
+			                                         ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(62): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.updateTrackOrder();
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(64): col: 30 Error: Access of undefined property lSoundProject.
+
+			fMainController.project = lSoundProject;
+			                          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(67): col: 9 Error: Access of possibly undefined property mainView through a reference with static type com.tunedustry.editor.controller:IOController.
+
+			this.mainView.addEventListener(FlexEvent.CREATION_COMPLETE, function():void {
+			     ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(67): col: 35 Error: Access of undefined property FlexEvent.
+
+			this.mainView.addEventListener(FlexEvent.CREATION_COMPLETE, function():void {
+			                               ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(68): col: 5 Error: Access of undefined property mainView.
+
+				mainView.getProgressBar().visible = false;
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(69): col: 5 Error: Incorrect number of arguments.  Expected 1.
+
+				loadProject();
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(76): col: 28 Error: Type was not found or was not a compile-time constant: SoundProjectLoader.
+
+			var lSoundProjectLoader:SoundProjectLoader = new SoundProjectLoader(pProject);
+			                        ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(76): col: 53 Error: Call to a possibly undefined method SoundProjectLoader.
+
+			var lSoundProjectLoader:SoundProjectLoader = new SoundProjectLoader(pProject);
+			                                                 ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(81): col: 48 Error: Access of undefined property FlexEvent.
+
+					fMainController.mainView.addEventListener(FlexEvent.CREATION_COMPLETE, function(e:Event):void {
+					                                          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(90): col: 40 Error: Call to a possibly undefined method setProgress through a reference with static type com.tunedustry.editor.controller:ProgressController.
+
+				fMainController.progressController.setProgress(e.bytesLoaded, e.bytesTotal);
+				                                   ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/IOController.as(13): col: 40 Error: Definition tunedustry.general.model.loader:SoundProjectSaver could not be found.
+
+	import tunedustry.general.model.loader.SoundProjectSaver;
+	                                      ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(26): col: 30 Error: Access of possibly undefined property fSoundProject through a reference with static type com.tunedustry.editor.controller:PlayRecordController.
+
+			fPlayer = new Player(this.fSoundProject);
+			                          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(28): col: 45 Error: Access of undefined property handlePlayerStopped.
+
+			fPlayer.addEventListener(PlayEvent.STOP, handlePlayerStopped);
+			                                         ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(36): col: 14 Error: Access of possibly undefined property recButton through a reference with static type com.tunedustry.editor.view:Controls.
+
+			fControls.recButton.addEventListener(MouseEvent.CLICK, record);
+			          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(57): col: 12 Error: Access of possibly undefined property fSoundProject through a reference with static type com.tunedustry.editor.controller:PlayRecordController.
+
+			if(this.fSoundProject.selectedTrack == null) {
+			        ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(58): col: 5 Error: Call to a possibly undefined method alert.
+
+				alert("Please select a track first");
+				^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(71): col: 20 Error: Type was not found or was not a compile-time constant: SoundEvent.
+
+			var lSoundEvent:SoundEvent = new SoundEvent(fSoundProject.selectedTrack);
+			                ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(71): col: 37 Error: Call to a possibly undefined method SoundEvent.
+
+			var lSoundEvent:SoundEvent = new SoundEvent(fSoundProject.selectedTrack);
+			                                 ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(71): col: 48 Error: Access of undefined property fSoundProject.
+
+			var lSoundEvent:SoundEvent = new SoundEvent(fSoundProject.selectedTrack);
+			                                            ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(74): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.selectedTrack.addSoundEvent(lSoundEvent);
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(75): col: 4 Error: Access of undefined property fSoundProject.
+
+			fSoundProject.prepareAudio();
+			^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/PlayRecordController.as(87): col: 14 Error: Call to a possibly undefined method setPosition through a reference with static type com.tunedustry.editor.view:Controls.
+
+			fControls.setPosition(pEvent.position);
+			          ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/ProgressController.as(4): col: 49 Error: Definition editor_core.com.tunedustry.general.model:SoundProject could not be found.
+
+	import editor_core.com.tunedustry.general.model.SoundProject;
+	                                               ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/controller/ProgressController.as(13): col: 56 Error: Definition editor_core.com.tunedustry.general.model.loader:SoundProjectSaver could not be found.
+
+	import editor_core.com.tunedustry.general.model.loader.SoundProjectSaver;
+	                                                      ^
+
+/Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/MainView.mxml(40):  Error: Access of undefined property fControls.
+
+				this.controlHolder.addChild(fControls);
