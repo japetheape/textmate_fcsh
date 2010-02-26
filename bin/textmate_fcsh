@@ -1,12 +1,16 @@
-#/usr/local/bin/env ruby
+#!/usr/bin/env ruby
 
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'textmate_fcsh')
-
+require File.join(File.dirname(__FILE__), '..', 'lib', 'fcsh', 'fcsh')
+require "open3" 
 
 a = TextmateFcsh.new
+a.run
 
-a.run
-sleep 1
-a.run
+
+loop do
+  sleep 2
+end
+
 

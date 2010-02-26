@@ -11,6 +11,7 @@ class MxmlcOutputReader
     parse!
   end
   
+  
   # example: /Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/Controls.as(43): col: 32 Warning: return value for function 'setPositions' has no type declaration.
   def parse!
     @output.each_line do |l|
