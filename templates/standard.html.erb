@@ -12,11 +12,11 @@
 			.container {padding:20px;}
 			
 			table {width:100%;}
-			table, tr, td,th {border-spacing:0px;font-size:11px;}
+			table, tr, td,th {border-spacing:0px;font-size:12px;}
 			th, td {padding-left:10px;}
 			th {text-align:left;border-bottom:1px solid #999;}
 			th.file {width:300px;}
-			th.level {width:100px;}
+			th.level {width:50px;}
 			tr {height:30px;border:1px solid black;}
 			tr.warning { background-color:yellow;}
 			tr.warning a {color:black;}
@@ -40,7 +40,7 @@
 		<% if @errors.empty? %>
 			<h1>No errors</h1>
 		<% else %>
-			<h1><%=@errors.size %> errors</h1>
+			<h1><%=@errors.select {|e| e.level == "Error" }.size %> errors, <%=@errors.select {|e| e.level == "Warning" }.size %> warnings </h1>
 			<table>
 				<tr>
 					<th class='level'>Level</th><th class='file'>File</th><th class='Notice'>Notice</th>

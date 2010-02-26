@@ -1,7 +1,7 @@
 require 'tempfile'
 require File.join(File.dirname(__FILE__), 'mxmlc_output', 'mxmlc_output_reader')
 require File.join(File.dirname(__FILE__), 'formatters', 'html_mxmlc_error_formatter')
-
+require File.join(File.dirname(__FILE__), 'file_watcher')
 
 class TextmateFcsh
   
@@ -9,9 +9,12 @@ class TextmateFcsh
     write_to_tempfile("Waiting for run...")
     fcsh_bin = "/Developer/SDKs/flex_sdk_4-1/bin/fcsh "
     @fcsh = Fcsh.new(fcsh_bin)
-    
-    #open_browser
+    @file_watcher = FileWatcher.new('tmp/restart.txt')
+    @file_watcher.each_change do |f|
+      run
+    end
   end
+  
   
   def write_to_tempfile(txt)
     @report_file = File.new('/tmp/mxmlc_error_report.html', 'w+')

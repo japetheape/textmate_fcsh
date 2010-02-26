@@ -6,11 +6,7 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'fcsh', 'fcsh')
 require "open3" 
 
 a = TextmateFcsh.new
-a.run
 
 
-loop do
-  sleep 2
-end
 
 
