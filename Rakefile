@@ -11,6 +11,8 @@ begin
     gem.homepage = "http://github.com/japetheape/textmate_fcsh"
     gem.authors = ["Jaap van der Meer"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.bindir = 'bin'
+    gem.executables = ["bin/textmate_fcsh"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
