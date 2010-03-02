@@ -9,14 +9,27 @@ class Fcsh
   
   
   def compile(command)
-    compile_first_time!(command) if !@targets.include?(command)
+    if !@targets.include?(command)
+      errors = compile_first_time!(command) 
+      if !errors.nil?
+        puts errors
+        exit
+      end
+      
+    end
     puts "Compiling..."
     @error_output_last_run = ''
     @stdin.puts "compile %d" % [@targets.index(command) + 1]
     
+    outfile = "bin/"
+    
     # watch std out till files changed
     @stdout.each_line do |line|
-      #puts line.inspect 
+      if /.+\.swf/.match(line)
+        puts ""
+        break
+      end
+      
       if /Files changed/.match(line)
         capture_error_output
         break
@@ -30,8 +43,22 @@ class Fcsh
   def compile_first_time!(command)
     puts "Assigning target..."
     @stdin.puts command
+    
+    @mxmlc_errors = nil
+    a = Thread.new do 
+      @stderr.each_line do |line|
+        
+        if /Error: /.match(line) || !@mxmlc_errors.nil?
+          @mxmlc_errors ||= "Errors while compiling, please check your .textmate_fcsh. Mxml output:\n"
+          @mxmlc_errors << line
+        end
+      end
+    end
+    
+    
     @targets << command
     sleep 3
+    return @mxmlc_errors
   end
   
   # Currently there is no way of knowing when error output has finished,
