@@ -12,7 +12,7 @@ class TextmateFcsh
     check_preconditions
     read_config!
     write_to_tempfile("Waiting for run...")
-    fcsh_bin = "/Developer/SDKs/flex_sdk_4-1/bin/fcsh "
+    fcsh_bin = 'fcsh'
     @fcsh = Fcsh.new(fcsh_bin)
     @file_watcher = FileWatcher.new('tmp/restart.txt')
     @file_watcher.each_change do |f|
@@ -28,7 +28,7 @@ class TextmateFcsh
     @report_file.close
   end
   
-  
+  # Open the report in the browser
   def open_browser
     `open #{@report_file.path}`
   end
@@ -43,12 +43,10 @@ class TextmateFcsh
   end
   
   
+  # Runs the mxmlc in the fcsh compiler
   def run_mxmlc
     mxmlc_command = "mxmlc"
     #" -default-background-color=#FFFFFF -default-frame-rate=24 -default-size 970 550 -output=bin/editor-debug.swf -source-path+=src -source-path+=assets -source-path+=lib/mvc -source-path+=lib/editor_core -verbose-stacktraces=true -warnings=true src/editor.mxml"
-    
-    
-    
     @config[:mxmlc_options].each do |k,v|
       #next if v
       splitted = v.to_s.split(",")
@@ -66,6 +64,7 @@ class TextmateFcsh
     @fcsh.error_output_last_run
   end
   
+  # Run a bogus mxmlc command, not used anymore.
   def run_bogus_mxmlc
     out = ''
     mxmlc_output_file = File.join(File.dirname(__FILE__), '..', 'spec', 'fixtures', 'mxmlc_output.txt')
@@ -73,14 +72,14 @@ class TextmateFcsh
     out
   end
   
-
+  
   def write_report!
     write_to_tempfile(@report.out)
   end
   
+  
   def check_preconditions
     raise "Configuration file does not exist, first run textmate_fcsh --setup" if !File.exist?(CONFIG_FILE)
-    
   end
   
   
@@ -103,11 +102,13 @@ class TextmateFcsh
     end
   end
   
-  
+  # Clones the textmate bundle
   def self.create_textmate_bundle!
+    puts "Installing textmate bundle."
     `mkdir -p ~/Library/Application\\ Support/TextMate/Bundles`
     `cd ~/Library/Application\\ Support/TextMate/Bundles/ && git clone #{TEXTMATE_BUNDLE_LOCATION} "textmate_fcsh.tmbundle"`
     `osascript -e 'tell app "TextMate" to reload bundles'`
+    puts "Textmate bundle installed."
   end
   
   

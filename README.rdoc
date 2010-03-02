@@ -1,5 +1,37 @@
 = TextmateFcsh
-Compiles flash with textmate.
+
+Compiles flex in textmate with FCSH. Provides clickable error reports, so errors can be
+fast and easily fixed.
+
+
+=== Installation
+
+  # install textmate_fcsh
+  gem install textmate_fcsh
+  
+  # install textmate bundle
+  textmate_fcsh -i
+  
+  
+=== Setup of new project
+
+  # go into your project dir
+  cd as3_project_dir
+  
+  # Creates compiler instruction file: .textmate_fcsh
+  textmate_fcsh -c
+  
+=== Run
+
+In project dir type: 
+
+  # This will launch continuous compiler, that watches tmp/restart.txt in your project dir.
+  textmate_fcsh
+  
+This will launch a new browser window with an error report. Now you can open the project in
+Textmate and type SHIFT-CMD-R, this will recompile your project and refresh the error report also.
+
+
 
 == Note on Patches/Pull Requests
  
