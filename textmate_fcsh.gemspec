@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{textmate_fcsh}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jaap van der Meer"]
@@ -38,7 +38,8 @@ Gem::Specification.new do |s|
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/textmate_fcsh_spec.rb",
-     "templates/standard.html.erb"
+     "templates/standard.html.erb",
+     "textmate_fcsh.gemspec"
   ]
   s.homepage = %q{http://github.com/japetheape/textmate_fcsh}
   s.rdoc_options = ["--charset=UTF-8"]
