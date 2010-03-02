@@ -3,11 +3,16 @@
 Compiles flex in textmate with FCSH. Provides clickable error reports, so errors can be
 fast and easily fixed.
 
+== Prerequisites
+
+Make sure:
+
+* <i>fcsh</i> is in your path
+* <i>git</i> is installed
+
 
 === Installation
-Make sure:
-* fcsh is in your path
-* git is installed
+
 
   # install textmate_fcsh
   gem install textmate_fcsh
