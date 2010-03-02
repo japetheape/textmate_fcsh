@@ -5,6 +5,9 @@ fast and easily fixed.
 
 
 === Installation
+Make sure:
+* fcsh is in your path
+* git is installed
 
   # install textmate_fcsh
   gem install textmate_fcsh
@@ -20,6 +23,10 @@ fast and easily fixed.
   
   # Creates compiler instruction file: .textmate_fcsh
   textmate_fcsh -c
+  
+  # open .textmate_fcsh and adapt compiler settings.
+  # You can add every directive that mxmlc understands. (underscores are translated to dashes)
+  
   
 === Run
 
