@@ -3,6 +3,11 @@
 Compiles flex in textmate with FCSH. Provides clickable error reports, so errors can be
 fast and easily fixed.
 
+== Screencast
+
+Watch a textmate_fcsh screencast here:
+http://jaapvandermeer.com/2010/03/01/textmatefcsh-compile-flex-in-textmate-using-fcsh/
+
 == Prerequisites
 
 Make sure:
