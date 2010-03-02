@@ -6,7 +6,7 @@ require 'yaml'
 
 class TextmateFcsh
   CONFIG_FILE = '.textmate_fcsh'
-  TEXTMATE_BUNDLE_LOCATION = "git@github.com:japetheape/textmate_fcsh_bundle.git"
+  TEXTMATE_BUNDLE_LOCATION = "git://github.com/japetheape/textmate_fcsh_bundle.git"
   
   def initialize
     check_preconditions
