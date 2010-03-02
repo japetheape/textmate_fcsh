@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "textmate_fcsh"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = "Compile Flex in Textmate using FCSH. Advanced error reporting."
+    gem.description = "Compile Flex in Textmate using FCSH. Advanced error reporting."
     gem.email = "jaapvandermeer@gmail.com"
     gem.homepage = "http://github.com/japetheape/textmate_fcsh"
     gem.authors = ["Jaap van der Meer"]
