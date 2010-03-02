@@ -1,6 +1,5 @@
-= textmate_fcsh
-
-Description goes here.
+= TextmateFcsh
+Compiles flash with textmate.
 
 == Note on Patches/Pull Requests
  

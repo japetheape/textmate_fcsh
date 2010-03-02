@@ -2,10 +2,15 @@ require 'tempfile'
 require File.join(File.dirname(__FILE__), 'mxmlc_output', 'mxmlc_output_reader')
 require File.join(File.dirname(__FILE__), 'formatters', 'html_mxmlc_error_formatter')
 require File.join(File.dirname(__FILE__), 'file_watcher')
+require 'yaml'
 
 class TextmateFcsh
+  CONFIG_FILE = '.textmate_fcsh'
+  TEXTMATE_BUNDLE_LOCATION = "git@github.com:japetheape/textmate_fcsh_bundle.git"
   
   def initialize
+    check_preconditions
+    read_config!
     write_to_tempfile("Waiting for run...")
     fcsh_bin = "/Developer/SDKs/flex_sdk_4-1/bin/fcsh "
     @fcsh = Fcsh.new(fcsh_bin)
@@ -16,16 +21,19 @@ class TextmateFcsh
   end
   
   
+  # Write report to file
   def write_to_tempfile(txt)
     @report_file = File.new('/tmp/mxmlc_error_report.html', 'w+')
     @report_file.write(txt)
     @report_file.close
   end
   
+  
   def open_browser
     `open #{@report_file.path}`
   end
   
+  # Compile the mxmlc, extract errors, create a report.
   def run
     output = run_mxmlc
     @mxml_output_reader = MxmlcOutputReader.new(output)
@@ -36,7 +44,24 @@ class TextmateFcsh
   
   
   def run_mxmlc
-    mxmlc_command = "mxmlc -default-background-color=#FFFFFF -default-frame-rate=24 -default-size 970 550 -output=bin/editor-debug.swf -source-path+=src -source-path+=assets -source-path+=lib/mvc -source-path+=lib/editor_core -verbose-stacktraces=true -warnings=true src/editor.mxml"
+    mxmlc_command = "mxmlc"
+    #" -default-background-color=#FFFFFF -default-frame-rate=24 -default-size 970 550 -output=bin/editor-debug.swf -source-path+=src -source-path+=assets -source-path+=lib/mvc -source-path+=lib/editor_core -verbose-stacktraces=true -warnings=true src/editor.mxml"
+    
+    
+    
+    @config[:mxmlc_options].each do |k,v|
+      #next if v
+      splitted = v.to_s.split(",")
+      splitted.each do |vsplitted|
+        splitter =  splitted.length > 1 ? '+=' : '='
+        if k == :default_size
+          splitter = ' '
+        end
+        mxmlc_command << " -%s%s%s" % [k.to_s.gsub(/\_/, '-'),splitter,vsplitted]
+      end
+    end
+    mxmlc_command << " %s" % @config[:main_file]
+    puts mxmlc_command.inspect
     @fcsh.compile(mxmlc_command)
     @fcsh.error_output_last_run
   end
@@ -51,6 +76,38 @@ class TextmateFcsh
 
   def write_report!
     write_to_tempfile(@report.out)
+  end
+  
+  def check_preconditions
+    raise "Configuration file does not exist, first run textmate_fcsh --setup" if !File.exist?(CONFIG_FILE)
+    
+  end
+  
+  
+  # Read configurion file, stored in .textmate_fcsh
+  def read_config!
+    @config = YAML.load_file(CONFIG_FILE)
+  end
+  
+  
+  # Create the config file
+  def self.create_config!
+    if File.exist?(CONFIG_FILE)
+      raise "Before recreating, first remove %s" % CONFIG_FILE
+    end
+    example_config = {:mxmlc_options => {:default_background_color => '#FFFFFF', :default_frame_rate => 24, :default_size => "970 550", :output => "bin/project-debug.swf", :source_path => "src,assets,lib/mvc,lib/editor_core", :verbose_stacktraces => true, :warnings => true}}
+    example_config[:main_file] = 'src/editor.mxml'
+    
+    File.open('.textmate_fcsh', 'w+') do |f|
+      f.write(YAML::dump(example_config))
+    end
+  end
+  
+  
+  def self.create_textmate_bundle!
+    `mkdir -p ~/Library/Application\\ Support/TextMate/Bundles`
+    `cd ~/Library/Application\\ Support/TextMate/Bundles/ && git clone #{TEXTMATE_BUNDLE_LOCATION} "textmate_fcsh.tmbundle"`
+    `osascript -e 'tell app "TextMate" to reload bundles'`
   end
   
   

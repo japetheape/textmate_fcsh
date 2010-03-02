@@ -5,8 +5,32 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'textmate_fcsh')
 require File.join(File.dirname(__FILE__), '..', 'lib', 'fcsh', 'fcsh')
 require "open3" 
 
-a = TextmateFcsh.new
+#a = TextmateFcsh.new
 
 
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: textmate_fcsh [options]"
+  opts.on("-v", "--verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+  opts.on("-s", "--setup", "Setup project") do |v|
+    TextmateFcsh.create_config!
+    options[:run] = false
+  end
+  
+  opts.on("-i", "--install", "Install textmate fcsh") do |v|
+    TextmateFcsh.create_textmate_bundle!
+    options[:run] = false
+  end
+  
+end.parse!
+
+
+if options[:run] != false
+  TextmateFcsh.new
+end
 
 
