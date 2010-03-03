@@ -256,3 +256,8 @@
 /Users/japetheape/Projects/tunedustry/editor/src/com/tunedustry/editor/view/MainView.mxml(40):  Error: Access of undefined property fControls.
 
 				this.controlHolder.addChild(fControls);
+				
+				/Users/japetheape/Projects/tunedustry/editor/src/editor.mxml(19):  Error: Incorrect number of arguments.  Expected no more than 0.
+
+								fMainController = new MainController(this.holder);
+
