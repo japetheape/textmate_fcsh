@@ -6,7 +6,7 @@ class MxmlcError
   
 
   
-  def initialize(filename, line, col, level, message)
+  def initialize(filename, line, column, level, message)
     @filename = filename
     @line = line
     @column = column

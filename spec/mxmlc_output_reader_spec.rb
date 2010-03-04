@@ -36,6 +36,17 @@ EOD
     reader.errors.size.should be 2
     reader.errors.first.level.should be == "Error"
     reader.errors.last.level.should be == "Warning"
-    
+    reader.errors.first.line.should be == "45"
+    reader.errors.last.column.should be == "49"
   end
+  
+  it "should process mxmlc error" do
+    out = <<EOD
+/Users/japetheape/Projects/tunedustry/editornew/src/TunedustryEditor.mxml: Error: Could not resolve <tunedustry:TunedustryContext> to a component implementation.
+    
+EOD
+    reader = MxmlcOutputReader.new(out)
+    reader.errors.size.should be 1
+  end
+    
 end

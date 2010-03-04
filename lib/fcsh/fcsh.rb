@@ -71,6 +71,7 @@ class Fcsh
     started = Time.now
     a = Thread.new do 
       @stderr.each_line do |line|
+        puts line.inspect
         first_line_captured = Time.now if first_line_captured.nil?
         @error_output_last_run  << line
       end
