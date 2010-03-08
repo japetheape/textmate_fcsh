@@ -55,6 +55,9 @@ class TextmateFcsh
         if k == :default_size
           splitter = ' '
         end
+        if k == :library_path
+          splitter = '+='
+        end
         mxmlc_command << " -%s%s%s" % [k.to_s.gsub(/\_/, '-'),splitter,vsplitted]
       end
     end

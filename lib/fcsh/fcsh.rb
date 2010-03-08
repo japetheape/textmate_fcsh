@@ -2,6 +2,7 @@ class Fcsh
   attr_reader :stdout, :stderr, :error_output_last_run
   
   def initialize(location)
+
     @targets = []
     @stdin, @stdout, @stderr = Open3.popen3(location)
     @error_output_last_run = ''
@@ -15,8 +16,8 @@ class Fcsh
         puts errors
         exit
       end
-      
     end
+    
     puts "Compiling..."
     @error_output_last_run = ''
     @stdin.puts "compile %d" % [@targets.index(command) + 1]
@@ -25,8 +26,15 @@ class Fcsh
     
     # watch std out till files changed
     @stdout.each_line do |line|
+      puts "FCSH OUT: " + line.inspect if $DEBUG
+      
       if /.+\.swf/.match(line)
         puts ""
+        break
+      end
+      
+      if /Nothing has changed/.match(line)
+        puts "Nothing has changed"
         break
       end
       
@@ -42,7 +50,7 @@ class Fcsh
   # Create a target if this is the first time.
   def compile_first_time!(command)
     puts "Assigning target..."
-    @stdin.puts command
+    @stdin.puts command if $DEBUG
     
     @mxmlc_errors = nil
     a = Thread.new do 
@@ -67,18 +75,18 @@ class Fcsh
   # will be enough.
   def capture_error_output
     puts "Capturing error output"
-    first_line_captured = nil
+    last_line_captured = nil
     started = Time.now
     a = Thread.new do 
       @stderr.each_line do |line|
-        puts line.inspect
-        first_line_captured = Time.now if first_line_captured.nil?
+        puts "FCSH ERROR: " + line.inspect  if $DEBUG
+        last_line_captured = Time.now
         @error_output_last_run  << line
       end
     end
     
     loop do
-      if (!first_line_captured.nil? && Time.now - first_line_captured > 1) || Time.now - started > 4
+      if (!last_line_captured.nil? && Time.now - last_line_captured > 1)
         break
       end
     end

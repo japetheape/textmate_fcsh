@@ -7,6 +7,7 @@ require "open3"
 
 #a = TextmateFcsh.new
 
+$DEBUG = false
 
 require 'optparse'
 
@@ -26,7 +27,13 @@ OptionParser.new do |opts|
     options[:run] = false
   end
   
+  opts.on("-v", "--verbose", "Verbose mode") do |v|
+    $DEBUG = true
+  end
+  
 end.parse!
+
+
 
 
 if options[:run] != false

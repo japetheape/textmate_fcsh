@@ -48,5 +48,23 @@ EOD
     reader = MxmlcOutputReader.new(out)
     reader.errors.size.should be 1
   end
+   
+   
+  it "should process error" do
+    out = <<EOD
+/Users/japetheape/Projects/worldlogger/flash/src/com/worldlogger/air/view/globe/NebulaSkybox.as(12): col: 3: Error: unable to resolve 'assets/hot_nebula_0_lowquality.jpg' for transcoding.
+  
+  sometext
+EOD
+    reader = MxmlcOutputReader.new(out)
+    reader.errors.size.should be 1
+    error = reader.errors.first
+    error.line.should == "12"
+    error.level.should == "Error"    
+
+    error.column.should == "3"
+
+    
+  end
     
 end
