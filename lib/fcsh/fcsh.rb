@@ -86,7 +86,7 @@ class Fcsh
     end
     
     loop do
-      if (!last_line_captured.nil? && Time.now - last_line_captured > 1)
+      if (!last_line_captured.nil? && Time.now - last_line_captured > 3)
         break
       end
     end

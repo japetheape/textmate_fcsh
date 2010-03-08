@@ -63,7 +63,24 @@ EOD
     error.level.should == "Error"    
 
     error.column.should == "3"
-
+  end
+  
+  
+  it "should process negative line" do
+    out = <<EOD
+/Users/japetheape/Projects/worldlogger/flash/src/com/worldlogger/air/view/GridTabView.mxml(-1):  Error: Type was not found or was not a compile-time constant: CategoryAxis.
+  
+  asd
+  
+EOD
+  reader = MxmlcOutputReader.new(out)
+  reader.errors.size.should be 1
+  error = reader.errors.first
+  error.line.should == "-1"
+  error.level.should == "Error"    
+  
+  
+    
     
   end
     

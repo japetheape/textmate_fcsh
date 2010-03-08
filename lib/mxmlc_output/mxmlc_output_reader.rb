@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'mxmlc_error')
 # Formats the mxmlc to errors
 class MxmlcOutputReader
   attr_reader :errors
-  ERROR_LINE = /^((\/([\w\.]+))+)(\((\d+)\))?:\s*(col: (\d+))?:?\s*(Error|Warning+): (.+)$/
+  ERROR_LINE = /^((\/([\w\.]+))+)(\((-?\d+)\))?:\s*(col: (\d+))?:?\s*(Error|Warning+): (.+)$/
 
   def initialize(output)
     @output = output

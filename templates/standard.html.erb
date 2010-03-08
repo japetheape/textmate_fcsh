@@ -37,16 +37,34 @@
 				
 		<div class='container'>
 		
+		<% 
+		 errors = []
+		 warnings = []
+		 @errors.each do |e| 
+			errors << e if e.level == "Error"
+			warnings << e if e.level == "Warning"
+		  end
+		
+		%>
+		
+		
+		
 		<% if @errors.empty? %>
 			<h1>No errors</h1>
 		<% else %>
-			<h1><%=@errors.select {|e| e.level == "Error" }.size %> errors, <%=@errors.select {|e| e.level == "Warning" }.size %> warnings </h1>
+			<h1><%=errors.size %> errors, <%=warnings.size %> warnings </h1>
 			<table>
 				<tr>
 					<th class='level'>Level</th><th class='file'>File</th><th class='Notice'>Notice</th>
 				</tr>
+			<% errors.each do |error| %>
+				<tr class="<%=error.level %>">
+					<td><%=error.level %></td><td><a href="txmt://open/?url=file://<%=error.filename %>&line=<%=error.line %>&column=<%=error.column %>"><%=error.filename %>:<%=error.line %></a></td><td><%=error.message %></td>
+				</tr>
+			<% end %>
+		
 				
-			<% @errors.each do |error| %>
+			<% warnings.each do |error| %>
 				<tr class="<%=error.level %>">
 					<td><%=error.level %></td><td><a href="txmt://open/?url=file://<%=error.filename %>&line=<%=error.line %>&column=<%=error.column %>"><%=error.filename %>:<%=error.line %></a></td><td><%=error.message %></td>
 				</tr>
