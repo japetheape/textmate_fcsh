@@ -6,7 +6,7 @@ require File.join(File.dirname(__FILE__), 'formatters', 'html_mxmlc_error_format
 require 'yaml'
 require File.join(File.dirname(__FILE__), 'output_watcher')
 require File.join(File.dirname(__FILE__), 'websocket_server')
-require File.join(File.dirname(__FILE__), '../../fcsh/lib/fcsh')
+require 'fcsh'
 require 'em-websocket'
 require 'json'
 
