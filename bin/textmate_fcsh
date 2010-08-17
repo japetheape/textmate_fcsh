@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-
-
 require File.join(File.dirname(__FILE__), '..', 'lib', 'textmate_fcsh')
-require File.join(File.dirname(__FILE__), '..', 'lib', 'fcsh', 'fcsh')
+
 require "open3" 
 
 #a = TextmateFcsh.new
@@ -11,7 +9,9 @@ $DEBUG = false
 
 require 'optparse'
 
+
 options = {}
+
 OptionParser.new do |opts|
   opts.banner = "Usage: textmate_fcsh [options]"
   opts.on("-v", "--verbose", "Run verbosely") do |v|
@@ -27,6 +27,11 @@ OptionParser.new do |opts|
     options[:run] = false
   end
   
+  opts.on("-t", "--standalone", "Run standalone without fcsh") do |v|
+    options[:standalone] = true
+  end
+  
+  
   opts.on("-v", "--verbose", "Verbose mode") do |v|
     $DEBUG = true
   end
@@ -37,7 +42,7 @@ end.parse!
 
 
 if options[:run] != false
-  TextmateFcsh.new
+  TextmateFcsh.new(options)
 end
 
 

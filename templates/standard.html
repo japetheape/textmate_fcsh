@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<title>Waiting...</title>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js'></script>
+    <script>
+       $(document).ready(function(){
+         function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
+
+         ws = new WebSocket("ws://localhost:8080/websocket");
+         ws.onmessage = function(evt) { 
+			var data = $.parseJSON(evt.data);
+		 
+			var lErrors = [];
+			var lWarnings = [];
+			for(var i = 0; i < data.length; i++ ) {
+				if(data[i].level == 'Warning') 
+					lWarnings.push(data[i]);
+				else if(data[i].level == 'Error')
+					lErrors.push(data[i]);
+			}
+			
+			$("#errortable").empty();
+			$("#errortable").append('<tr><th class="level">Level</th><th class="file">File</th><th></th></tr>')
+			
+		  	for(var i = 0; i < lErrors.length; i++) {
+				var e = createError(lErrors[i]);
+            	$("#errortable").append(e);
+			}
+			
+		  	for(var i = 0; i < lWarnings.length; i++) {
+				var e = createError(lWarnings[i]);		
+            	$("#errortable").append(e);
+          	}
+
+			document.title = lErrors.length + " errors, " + lWarnings.length + " warnings"
+        	var lDate = new Date();
+			$("#title").html(document.title + ", last run on " + lDate.getHours() + ":" + lDate.getMinutes() + ":" + lDate.getSeconds());
+			
+		};
+         ws.onclose = function() { debug("socket closed"); };
+         ws.onopen = function() {
+           debug("connected...");
+           ws.send("hello server");
+         };
+       });
+
+		function createError(pError) {
+			var lTextmateUrl = "txmt://open/?url=file://" + pError.filename + "&line=" + pError.line + "&column=" + pError.column;
+			
+			var lRow = $('<tr>').addClass(pError.level);
+			lRow.append($('<td>').html(pError.level));
+			
+			
+			var lLink = $('<a>').attr('href', lTextmateUrl).html(pError.filename + ":" + pError.line);
+			lRow.append($('<td>').append(lLink));
+			lRow.append($('<td>').html(pError.message));
+
+			
+			return lRow;
+		}
+
+
+
+   </script>
+     
+		<style>
+			* {font-family:arial; }
+			h1 {}
+			html {margin:0px;padding:0px;}
+			body {padding:0px;margin:0px;font-size:12px;}
+			.header {font-size:10px;border-bottom:1px solid #999;width:100%;text-align:right;background-color:black; color:white;}
+			.header .content {padding:10px;}
+			.header a {color:white;}
+			.container {padding:20px;}
+			
+			table {width:100%;}
+			table, tr, td,th {border-spacing:0px;font-size:12px;}
+			th, td {padding-left:10px;}
+			th {text-align:left;border-bottom:1px solid #999;}
+			th.file {width:300px;}
+			th.level {width:50px;}
+			tr {height:35px;border:1px solid black;}
+			tr.warning { background-color:yellow;}
+			tr.warning a {color:black;}
+			
+			tr.error { background-color:#FF3000;}
+			tr.error a {color:white;}
+			
+			td a {display:block;}
+			tr.error td {color:white;}
+			td {border-bottom:1px dotted #ccc;}
+		</style>
+	</head>
+	<body>
+		<div class='header'>
+			<div class='content'>
+				Generated <strong><%=Time.now.to_s %></strong> by Textmate Fcsh, written by <a href="http://www.jaapvandermeer.com">Jaap van der Meer</a>
+			</div>
+		</div>
+		
+		<div class='container' id="container">
+		  	<h1 id="title">Waiting...</h1>
+			<table id="errortable">
+			</table>
+		</div>
+
+	</body>
+</html>

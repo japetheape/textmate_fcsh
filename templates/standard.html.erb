@@ -1,6 +1,28 @@
 <html>
 	<head>
-		<title>Errors</title>
+		<title><%=@errors.errors.size %> Errors, <%=@errors.warnings.size %> Warnings</title>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js'></script>
+    <script>
+       $(document).ready(function() {
+         function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
+
+         ws = new WebSocket("ws://localhost:8080/websocket");
+         ws.onmessage = function(evt) { 
+           errors = eval(evt.data);
+           for(var error in errors) {
+             console.info(error);
+           }
+  //         $("#msg").append("<p>"+evt.data+"</p>"); 
+           
+         };
+         ws.onclose = function() { debug("socket closed"); };
+         ws.onopen = function() {
+           debug("connected...");
+           ws.send("hello server");
+         };
+       });
+   </script>
+     
 		<style>
 			* {font-family:arial; }
 			h1 {}
@@ -36,35 +58,23 @@
 		</div>
 				
 		<div class='container'>
-		
-		<% 
-		 errors = []
-		 warnings = []
-		 @errors.each do |e| 
-			errors << e if e.level == "Error"
-			warnings << e if e.level == "Warning"
-		  end
-		
-		%>
-		
-		
-		
-		<% if @errors.empty? %>
+
+		<% if @errors.messages.empty? %>
 			<h1>No errors</h1>
 		<% else %>
-			<h1><%=errors.size %> errors, <%=warnings.size %> warnings </h1>
+			<h1><%=@errors.errors.size %> errors, <%=@errors.warnings.size %> warnings </h1>
 			<table>
 				<tr>
 					<th class='level'>Level</th><th class='file'>File</th><th class='Notice'>Notice</th>
 				</tr>
-			<% errors.each do |error| %>
+			<% @errors.errors.each do |error| %>
 				<tr class="<%=error.level %>">
 					<td><%=error.level %></td><td><a href="txmt://open/?url=file://<%=error.filename %>&line=<%=error.line %>&column=<%=error.column %>"><%=error.filename %>:<%=error.line %></a></td><td><%=error.message %></td>
 				</tr>
 			<% end %>
 		
 				
-			<% warnings.each do |error| %>
+			<% @errors.warnings.each do |error| %>
 				<tr class="<%=error.level %>">
 					<td><%=error.level %></td><td><a href="txmt://open/?url=file://<%=error.filename %>&line=<%=error.line %>&column=<%=error.column %>"><%=error.filename %>:<%=error.line %></a></td><td><%=error.message %></td>
 				</tr>
@@ -74,5 +84,6 @@
 		
 		</div>
 	
+
 	</body>
 </html>

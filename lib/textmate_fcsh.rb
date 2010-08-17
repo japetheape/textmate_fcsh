@@ -1,24 +1,43 @@
+require 'rubygems'
+require File.join(File.dirname(__FILE__), 'dir_watcher')
+
 require 'tempfile'
-require File.join(File.dirname(__FILE__), 'mxmlc_output', 'mxmlc_output_reader')
 require File.join(File.dirname(__FILE__), 'formatters', 'html_mxmlc_error_formatter')
-require File.join(File.dirname(__FILE__), 'file_watcher')
 require 'yaml'
+require File.join(File.dirname(__FILE__), 'output_watcher')
+require File.join(File.dirname(__FILE__), 'websocket_server')
+require File.join(File.dirname(__FILE__), '../../fcsh/lib/fcsh')
+require 'em-websocket'
+require 'json'
+
 
 class TextmateFcsh
   CONFIG_FILE = '.textmate_fcsh'
   TEXTMATE_BUNDLE_LOCATION = "git://github.com/japetheape/textmate_fcsh_bundle.git"
   
-  def initialize
+  def initialize(options = {})
+    @options = options
+    @server = WebsocketServer.new
+    open_browser_first_time
+    
     check_preconditions
     read_config!
     write_to_tempfile("Waiting for run...")
-    fcsh_bin = 'fcsh'
-    @fcsh = Fcsh.new(fcsh_bin)
-    @file_watcher = FileWatcher.new('tmp/restart.txt')
-    @file_watcher.each_change do |f|
+  
+    if options[:standalone]
+      puts "Running standalone"
       run
+    else
+      @fcsh = Fcsh.new
+      d = DirWatcher.new('src libs') do 
+        run
+      end
     end
   end
+  
+  
+  
+  
   
   
   # Write report to file
@@ -28,6 +47,13 @@ class TextmateFcsh
     @report_file.close
   end
   
+  def open_browser_first_time
+    if !@options[:standalone]
+      f = File.join(File.dirname(__FILE__), '..','templates', 'standard.html')
+      `open #{f}`
+    end
+  end
+  
   # Open the report in the browser
   def open_browser
     `open #{@report_file.path}`
@@ -35,17 +61,35 @@ class TextmateFcsh
   
   # Compile the mxmlc, extract errors, create a report.
   def run
-    output = run_mxmlc
-    @mxml_output_reader = MxmlcOutputReader.new(output)
-    @report = HtmlMxmlcErrorFormatter.new(@mxml_output_reader.errors)
-    write_report!
-    open_browser
+    if @options[:standalone]
+      puts get_compile_command
+      output_watcher = OutputWatcher.new("mxmlc " + get_compile_command)
+      output_watcher.stdout.each_line do |line|
+        puts " -->\t" + line
+      end
+      
+      output = output_watcher.stderr
+      errors = MxmlcOutputReader.new(output)
+      
+      @report = HtmlMxmlcErrorFormatter.new(errors)
+      write_report!
+      open_browser
+      
+    else
+      output = run_mxmlc
+      errors = @fcsh.errors
+      
+      puts "Complete: %d errors, %d warnings" % [errors.errors.size, errors.warnings.size]
+      error_array = errors.messages.map {|x| {"filename" => x.filename, "line" => x.line, "level" => x.level, "message" => x.message, "content" => x.content, "column" => x.column } }
+      @server.send  JSON.generate(error_array)
+    end
+    
+
+      
   end
   
-  
-  # Runs the mxmlc in the fcsh compiler
-  def run_mxmlc
-    mxmlc_command = "mxmlc"
+  def get_compile_command
+    mxmlc_command = ""
     #" -default-background-color=#FFFFFF -default-frame-rate=24 -default-size 970 550 -output=bin/editor-debug.swf -source-path+=src -source-path+=assets -source-path+=lib/mvc -source-path+=lib/editor_core -verbose-stacktraces=true -warnings=true src/editor.mxml"
     @config[:mxmlc_options].each do |k,v|
       #next if v
@@ -62,9 +106,16 @@ class TextmateFcsh
       end
     end
     mxmlc_command << " %s" % @config[:main_file]
-    puts mxmlc_command.inspect
-    @fcsh.compile(mxmlc_command)
-    @fcsh.error_output_last_run
+    mxmlc_command
+  end
+  
+  # Runs the mxmlc in the fcsh compiler
+  def run_mxmlc
+    if @target_id.nil?
+      @target_id = @fcsh.mxmlc(get_compile_command)
+    else
+      @fcsh.compile(@target_id)
+    end
   end
   
   # Run a bogus mxmlc command, not used anymore.
