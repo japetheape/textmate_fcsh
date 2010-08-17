@@ -37,16 +37,24 @@ Make sure:
   # open .textmate_fcsh and adapt compiler settings.
   # You can add every directive that mxmlc understands. (underscores are translated to dashes)
   
+
   
 === Run
 
 In project dir type: 
 
-  # This will launch continuous compiler, that watches tmp/restart.txt in your project dir.
+  # This will launch continuous compiler, that watches the paths added to source_path in source_path.
   textmate_fcsh
   
-This will launch a new browser window with an error report. Now you can open the project in
-Textmate and type SHIFT-CMD-R, this will recompile your project and refresh the error report also.
+This will launch a new browser window with an error report. Every time you make a change, it will recompile and 
+push the changes to your browser.
+
+
+=== Growl integration
+
+Follow instructions at http://blog.chrislowis.co.uk/2010/07/06/growl-notifications-from-ruby-on-osx.html to enable growl.
+
+==
 
 
 

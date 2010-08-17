@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'websocket_server')
 require 'fcsh'
 require 'em-websocket'
 require 'json'
-
+require 'ruby-growl'
 
 class TextmateFcsh
   CONFIG_FILE = '.textmate_fcsh'
@@ -19,6 +19,7 @@ class TextmateFcsh
     @options = options
     @server = WebsocketServer.new
     open_browser_first_time
+    @growl = Growl.new "127.0.0.1", "ruby-growl", ["ruby-growl Notification"]
     
     check_preconditions
     read_config!
@@ -29,7 +30,7 @@ class TextmateFcsh
       run
     else
       @fcsh = Fcsh.new
-      d = DirWatcher.new('src libs') do 
+      d = DirWatcher.new(@config[:mxmlc_options][:source_path].split(",").join(' ')) do 
         run
       end
     end
@@ -79,9 +80,11 @@ class TextmateFcsh
       output = run_mxmlc
       errors = @fcsh.errors
       
-      puts "Complete: %d errors, %d warnings" % [errors.errors.size, errors.warnings.size]
+      message = "Complete: %d errors, %d warnings" % [errors.errors.size, errors.warnings.size]
+      puts message
       error_array = errors.messages.map {|x| {"filename" => x.filename, "line" => x.line, "level" => x.level, "message" => x.message, "content" => x.content, "column" => x.column } }
       @server.send  JSON.generate(error_array)
+      @growl.notify "ruby-growl Notification", "Textmate FCSH", message
     end
     
 
